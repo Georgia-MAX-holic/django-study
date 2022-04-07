@@ -9,11 +9,11 @@
         <span>nav2</span>
         <span>nav3</span>
         {% if not user.is_authenticated %}
-        <a href="{% url "SP:login" %}?next={{ request.path }}">
+        <a href="{% url "SP_app:login" %}?next={{ request.path }}">
             <span>Login</span>
         </a>
         {% else %}
-        <a href="{% url "SP:Logout" %}?next={{ request.path }}">
+        <a href="{% url "SP_app:logout" %}?next={{ request.path }}">
             <span>Logout</span>
         </a>
         {% endif %}

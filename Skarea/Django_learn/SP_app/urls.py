@@ -16,15 +16,15 @@ Including another URLconf
 
 from django.urls import path
 
-from SP.views import hello_world, AccountCreateView
+from SP_app.views import hello_world, AccountCreateView
 from django.contrib.auth.views import LoginView, LogoutView
 
-app_name ="SP"
+app_name ="SP_app"
 
 urlpatterns = [
     path('hello_world/', hello_world, name="hello_world"),
     
-    path('login/', LoginView.as_view(template_name="SP/login.html"), name="login"),
+    path('login/', LoginView.as_view(template_name="SP_app/login.html"), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     
     path("create/", AccountCreateView.as_view(), name="create"),

@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "SP"
+    "SP_app"
     
 ]
 
@@ -139,10 +139,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = [BASE_DIR / "static", ]
 
+LOGIN_REDIRECT_URL = reverse_lazy("SP_app:hello_world")
+LOGOUT_REDIRECT_URL = reverse_lazy("SP_app:login")
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = reverse_lazy("SP:hello_world")
-LOGOUT_REDIRECT_URL = reverse_lazy("SP:login")
