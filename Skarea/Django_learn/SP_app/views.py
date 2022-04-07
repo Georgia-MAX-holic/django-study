@@ -3,9 +3,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from SP_app.models import HelloWorld
-from django.views.generic import CreateView
+from django.views.generic import CreateView , DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+
 # Create your views here.
 
 def hello_world(request):
@@ -28,3 +29,8 @@ class AccountCreateView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("SP_app:hello_world")
     template_name = "SP_app/create.html"    
+    
+class AccountDetailView(DetailView):
+    model= User
+    context_object_name= "target_user"
+    template_name = "SP_app/detail.html"
