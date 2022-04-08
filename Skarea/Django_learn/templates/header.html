@@ -12,6 +12,9 @@
         <a href="{% url 'SP_app:login' %}?next={{ request.path }}">
             <span>Login</span>
         </a>
+        <a href="{% url 'SP_app:create' %}?next={{ request.path }}">
+            <span>SignUp</span>
+        </a>
         {% else %}
         <a href="{% url 'SP_app:detail' pk=user.pk %}">
             <span>MyPage</span>
