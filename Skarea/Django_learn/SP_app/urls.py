@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.urls import path
 
-from SP_app.views import AccountDetailView, hello_world, AccountCreateView
+from SP_app.views import AccountDetailView, AccountUpdateView, hello_world, AccountCreateView
 from django.contrib.auth.views import LoginView, LogoutView
 
 app_name ="SP_app"
@@ -29,4 +29,5 @@ urlpatterns = [
     
     path("create/", AccountCreateView.as_view(), name="create"),
     path("detail/<int:pk>", AccountDetailView.as_view(), name="detail"),
+    path("update/<int:pk>", AccountUpdateView.as_view(), name="update"),
 ]
