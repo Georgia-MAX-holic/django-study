@@ -148,3 +148,6 @@ LOGOUT_REDIRECT_URL = reverse_lazy("SP_app:login")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
