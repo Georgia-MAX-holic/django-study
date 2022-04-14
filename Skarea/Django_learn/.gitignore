@@ -127,13 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-<<<<<<< HEAD
 
 django-study/
 
 .env
 
 __pycache__/
-=======
-Skarea/ds-sa-api
->>>>>>> 134eb3d437641dae7be6a3fb5f98f7e8d354e5c7
