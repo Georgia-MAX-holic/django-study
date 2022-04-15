@@ -4,7 +4,7 @@ from profileapp.decorators import profile_ownership_required
 
 from profileapp.forms import ProfileCreationForm
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from profileapp.forms import ProfileCreationForm
 from profileapp.models import Profile
 # Create your views here.
@@ -27,12 +27,12 @@ class ProfileCreateView(CreateView):
         return reverse("SP_app:detail", kwargs={"pk": self.object.user.pk})
 @method_decorator(profile_ownership_required, "get")
 @method_decorator(profile_ownership_required, "post")
-class ProfileUpdateView(CreateView):
+class ProfileUpdateView(UpdateView):
     model = Profile
     context_object_name = "target_profile"
     
     form_class = ProfileCreationForm
-    template_name = "profileapp/create.html"
+    template_name = "profileapp/update.html"
     
     def get_success_url(self):
         return reverse("SP_app:detail", kwargs={"pk": self.object.user.pk})
