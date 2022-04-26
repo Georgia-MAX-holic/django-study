@@ -1,16 +1,53 @@
-from django.contrib.auth.models import User
-from django.db import models 
 
+from audioop import reverse
+from re import template
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from articleapp.decorators import article_ownership_required
+from articleapp.forms import ArticleCreationForm
+from django.views.generic import UpdateView, DetailView , CreateView , DeleteView
+from articleapp.models import Article 
+from django.contrib.auth.decorators import login_required
 # create your models here.
 
-from projectapp.models import Project 
+@method_decorator(login_required, "get")
+@method_decorator(login_required, "post")
+class ArticleCreateView(CreateView):
+    model = Article
+    form_class = ArticleCreationForm
+    template_name = "articleapp/create.html"
+    
+    def form_valid(self, form):
+        temp_article = form.save(commit=False)
+        temp_article.writer = self.request.user
+        temp_article.save()
+        return super.form_valid(form)
+    
+    def get_success_url(self):
+        return reverse("articleapp:detail", kwargs={"pk": self.object.pk})
+    
+class ArticleDetailView(DetailView):
+    model = Article
+    context_object_name = "target_article"
+    template_name = "articleapp/detail.html"
 
-class Article(models.Model):
-    writer = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="article", null=True)
-    project = models.ForeignKey(Project, on_delete=models.SET_NULL, related_name='artucle', null=True)
+@method_decorator(article_ownership_required, "get")
+@method_decorator(article_ownership_required, "post")
+class ArticleUpdateView(UpdateView):
+    model = Article
+    context_object_name= "target_article"
+    form_class = ArticleCreationForm
+    template_name = "articleapp/update.html"
     
-    title = models.CharField(max_length=200, null=True)
-    image = models.ImageField(upload_to="article/", null=False)
-    content = models.TextField(null=True)
+
     
-    created_at = models.DateField(auto_now_add=True, null=True)
+    def get_success_url(self):
+        return reverse("articleapp:detail", kwargs={"pk": self.object.pk})
+
+@method_decorator(article_ownership_required, "get")
+@method_decorator(article_ownership_required, "post")
+class ArticleDeleteView(DeleteView):
+    model = Article
+    context_object_name = "target_article"
+    success_url = reverse_lazy("articleapp:list")
+    template_name = "articleapp/delete.html"
