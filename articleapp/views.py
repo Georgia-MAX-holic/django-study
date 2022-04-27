@@ -1,11 +1,12 @@
 
-from audioop import reverse
-from re import template
+from django.urls import reverse
+
+
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from articleapp.decorators import article_ownership_required
 from articleapp.forms import ArticleCreationForm
-from django.views.generic import UpdateView, DetailView , CreateView , DeleteView
+from django.views.generic import UpdateView, DetailView , CreateView , DeleteView, ListView
 from articleapp.models import Article 
 from django.contrib.auth.decorators import login_required
 # create your models here.
@@ -21,7 +22,7 @@ class ArticleCreateView(CreateView):
         temp_article = form.save(commit=False)
         temp_article.writer = self.request.user
         temp_article.save()
-        return super.form_valid(form)
+        return super().form_valid(form)
     
     def get_success_url(self):
         return reverse("articleapp:detail", kwargs={"pk": self.object.pk})
@@ -51,3 +52,9 @@ class ArticleDeleteView(DeleteView):
     context_object_name = "target_article"
     success_url = reverse_lazy("articleapp:list")
     template_name = "articleapp/delete.html"
+    
+class ArticleListView(ListView):
+    model = Article 
+    context_object_name = "article_list"
+    template_name = "articleapp/list.html"
+    paginate_by = 25
