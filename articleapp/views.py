@@ -1,15 +1,14 @@
 
 from django.urls import reverse
 
-
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from articleapp.decorators import article_ownership_required
 from articleapp.forms import ArticleCreationForm
-from django.views.generic import UpdateView, DetailView , CreateView , DeleteView, ListView , FormMixin
+from django.views.generic import UpdateView, DetailView , CreateView , DeleteView, ListView 
 from articleapp.models import Article 
 from django.contrib.auth.decorators import login_required
-
+from django.views.generic.edit import FormMixin
 from commentapp.forms import CommentCreationForm
 # create your models here.
 
