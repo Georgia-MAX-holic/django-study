@@ -24,6 +24,11 @@
         Delete Article  
     </a>
     {% endif %}
+    <hr>
+    {% for comment in target_article.comment %}
+        {% include 'commentapp/detail.html' with comment=comment %}
+    {% endfor %}
+    {% include 'commentapp/create.html' with article=target_article %}
     </div>
 </div>
 {% endblock %} 
